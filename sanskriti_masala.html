@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanskriti Masala — Campus News</title>
+<meta name="description" content="Sanskriti Masala — a human-reviewed campus news platform.">
+<style>
+:root{
+  --paper:#f7f3ea;--paper2:#fffdf8;--ink:#181818;--muted:#6d6a63;
+  --line:#d8d0c1;--accent:#9d1717;--accent2:#c43a28;--soft:#eee7da;
+  --shadow:0 10px 35px rgba(35,25,10,.08);--radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.brand{display:flex;align-items:center;gap:12px}.brand-name{font-family:Georgia,serif;font-size:22px;font-weight:900;letter-spacing:.06em}.brand-tagline{font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:800;margin-top:2px}
+.mobile-menu{display:none;border:0;background:none;font-size:24px}
+.top-actions{display:flex;align-items:center;gap:9px}.search{width:280px;border:1px solid var(--line);background:var(--paper);border-radius:22px;display:flex;align-items:center;padding:0 13px;color:var(--muted)}.search input{width:100%;border:0;outline:0;background:transparent;padding:10px 8px}
+.icon-btn,.avatar-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper2)}.avatar-btn{font-weight:800}
+.layout{max-width:1420px;margin:auto;display:grid;grid-template-columns:225px minmax(0,760px) 280px;gap:24px;padding:22px 22px 60px}
+.sidebar{position:sticky;top:94px;height:calc(100vh - 120px);display:flex;flex-direction:column}.nav-item{border:0;background:transparent;text-align:left;padding:12px 13px;border-radius:10px;font-weight:700;color:#403d37}.nav-item:hover,.nav-item.active{background:var(--soft);color:var(--accent)}.nav-item span{margin-left:8px}.side-title{font-size:10px;letter-spacing:.16em;color:#898276;font-weight:800;margin:25px 13px 8px}.sidebar-bottom{margin-top:auto}.post-news-btn{width:100%;padding:13px;border:0;border-radius:10px;background:var(--accent);color:#fff;font-weight:800}.admin-link{width:100%;margin-top:8px;padding:10px;border:1px solid var(--line);background:var(--paper2);border-radius:10px;font-weight:700}
+.masthead{text-align:center;border-bottom:3px double var(--ink);padding:10px 0 22px;margin-bottom:18px}.edition{font-size:10px;letter-spacing:.15em;color:var(--muted);font-weight:800}.masthead h1{font-family:Georgia,serif;font-size:42px;line-height:1.05;margin:10px 0 7px}.masthead p{margin:0;color:var(--muted);font-family:Georgia,serif;font-style:italic}
+.featured{margin-bottom:25px}.hero-card{background:var(--paper2);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);overflow:hidden}.hero-image{width:100%;height:330px;object-fit:cover;display:block}.hero-body{padding:20px}.kicker{font-size:11px;color:var(--accent);font-weight:900;letter-spacing:.13em;text-transform:uppercase}.hero-body h2{font:800 31px/1.1 Georgia,serif;margin:7px 0}.hero-body p{color:#4e4a43;line-height:1.6;margin:0 0 14px}.meta{font-size:12px;color:var(--muted);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.feed-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:9px}.feed-header h2{font:800 22px Georgia,serif;margin:0}.feed-header select{border:1px solid var(--line);background:var(--paper2);padding:7px;border-radius:7px}
+.card{background:var(--paper2);border-bottom:1px solid var(--line);padding:18px 0}.card-head{display:flex;gap:11px}.mini-avatar{width:39px;height:39px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}.post-main{min-width:0;flex:1}.post-line{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.name{font-weight:800}.handle,.time{color:var(--muted);font-size:13px}.dot{color:#aaa}.card h3{font:800 22px/1.18 Georgia,serif;margin:7px 0}.card-text{font-size:15px;line-height:1.6;white-space:pre-wrap}.source-link{display:inline-block;margin-top:7px;color:var(--accent);font-size:13px;text-decoration:none;font-weight:700}.post-images{display:grid;gap:5px;margin-top:12px;overflow:hidden;border-radius:12px}.post-images.one{grid-template-columns:1fr}.post-images.two{grid-template-columns:1fr 1fr}.post-images.three{grid-template-columns:2fr 1fr}.post-images.four{grid-template-columns:1fr 1fr}.post-images img{width:100%;height:245px;object-fit:cover;display:block;background:#ddd}.post-images.two img,.post-images.four img{height:190px}.post-images.three img:first-child{height:385px;grid-row:span 2}.actions{display:flex;justify-content:space-between;max-width:510px;margin-top:10px}.action{border:0;background:none;color:var(--muted);padding:6px 4px}.action:hover{color:var(--accent)}.action.active{color:var(--accent);font-weight:800}
+.rightbar{position:sticky;top:94px;height:max-content}.panel{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}.panel h3{font:800 17px Georgia,serif;margin:0 0 13px}.trend{padding:10px 0;border-bottom:1px solid var(--line)}.trend:last-child{border-bottom:0}.trend small{color:var(--muted)}.trust{margin-top:12px;background:#e8f1e5;padding:9px;border-radius:8px;font-size:12px;font-weight:800}.small{font-size:13px;color:var(--muted);line-height:1.5}
+.empty{padding:45px 15px;text-align:center;color:var(--muted)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,12,8,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.modal-backdrop.open{display:flex}.modal{width:min(700px,100%);max-height:92vh;overflow:auto;background:var(--paper2);border-radius:16px;box-shadow:0 25px 80px rgba(0,0,0,.3);padding:22px}.modal-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}.modal-head h2{font:800 25px Georgia,serif;margin:0}.close{border:0;background:none;font-size:28px;line-height:1}.modal label{display:block;font-weight:800;font-size:13px;margin:12px 0}.modal input,.modal textarea,.modal select{display:block;width:100%;margin-top:6px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;outline:none}.modal textarea{resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.image-inputs{display:grid;gap:8px}.image-row{display:flex;gap:7px}.image-row input{margin:0}.remove-img{border:1px solid var(--line);background:var(--soft);border-radius:8px;width:42px}.add-image{border:1px dashed #aaa;background:transparent;border-radius:8px;padding:9px;font-weight:800}.warning{background:#f7eee5;border-left:4px solid var(--accent);padding:10px;font-size:12px;line-height:1.5;margin:14px 0}.primary{width:100%;border:0;border-radius:9px;padding:12px;background:var(--accent);color:#fff;font-weight:800}.secondary{border:1px solid var(--line);background:var(--paper2);padding:9px 12px;border-radius:8px;font-weight:700}
+.admin-item{border:1px solid var(--line);border-radius:11px;padding:14px;margin:10px 0}.admin-item h4{font:800 19px Georgia,serif;margin:5px 0}.admin-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.approve{background:#226b3b;color:#fff;border:0;border-radius:7px;padding:8px 11px;font-weight:800}.reject,.delete{background:#fff;border:1px solid #d7b9b9;color:#8d1c1c;border-radius:7px;padding:8px 11px;font-weight:800}.edit{background:var(--ink);color:#fff;border:0;border-radius:7px;padding:8px 11px;font-weight:800}.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.stat{background:var(--soft);padding:12px;border-radius:8px;text-align:center}.stat b{display:block;font-size:22px}.profile-head{text-align:center}.profile-avatar{width:82px;height:82px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:900;margin:4px auto 10px}.profile-name{font:800 25px Georgia,serif}.profile-handle{color:var(--muted);margin:4px 0 15px}.profile-stats{display:flex;justify-content:center;gap:30px;border-block:1px solid var(--line);padding:13px;margin:15px 0}.profile-stats b{display:block;text-align:center}.article-cover{width:100%;max-height:410px;object-fit:cover;border-radius:10px}.article h1{font:900 35px/1.08 Georgia,serif}.article p{font:16px/1.75 Georgia,serif}.article-gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px}.article-gallery img{width:100%;height:240px;object-fit:cover;border-radius:7px}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:9px;opacity:0;transform:translateY(10px);transition:.25s;z-index:200;font-size:13px}.toast.show{opacity:1;transform:none}
+.no-results{padding:30px 0;text-align:center;color:var(--muted)}
+@media(max-width:1100px){.layout{grid-template-columns:200px minmax(0,1fr)}.rightbar{display:none}.search{width:220px}}
+@media(max-width:760px){.topbar{padding:0 13px}.mobile-menu{display:block}.brand-name{font-size:17px}.brand-tagline{font-size:8px}.top-actions{gap:5px}.search{width:150px}.layout{display:block;padding:12px}.sidebar{position:fixed;left:-270px;top:72px;width:250px;height:calc(100vh - 72px);z-index:90;background:var(--paper2);padding:15px;box-shadow:10px 0 30px rgba(0,0,0,.12);transition:.25s}.sidebar.open{left:0}.masthead h1{font-size:33px}.hero-image{height:230px}.hero-body h2{font-size:25px}.form-grid{grid-template-columns:1fr}.article-gallery{grid-template-columns:1fr}.post-images.three{grid-template-columns:1fr}.post-images.three img:first-child{height:245px;grid-row:auto}.post-images img,.post-images.two img,.post-images.four img{height:210px}.post-images.two,.post-images.four{grid-template-columns:1fr 1fr}.post-images.four img{height:150px}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <button class="mobile-menu" id="mobileMenuBtn">☰</button>
+    <div>
+      <div class="brand-name">SANSKRITI MASALA</div>
+      <div class="brand-tagline">YOUR CAMPUS. YOUR NEWS.</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <label class="search">⌕ <input id="searchInput" type="search" placeholder="Search campus news..."></label>
+    <button class="icon-btn" id="themeBtn" title="Toggle paper/night theme">◐</button>
+    <button class="avatar-btn" id="profileBtn">G</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <button class="nav-item active" data-view="home">⌂ <span>Home</span></button>
+    <button class="nav-item" data-view="latest">◷ <span>Latest</span></button>
+    <button class="nav-item" data-view="trending">↗ <span>Trending</span></button>
+    <button class="nav-item" data-view="bookmarks">🔖 <span>Bookmarks</span></button>
+    <div class="side-title">CATEGORIES</div>
+    <button class="nav-item category" data-category="College">🏫 <span>College</span></button>
+    <button class="nav-item category" data-category="Sports">🏆 <span>Sports</span></button>
+    <button class="nav-item category" data-category="Events">🎭 <span>Events</span></button>
+    <button class="nav-item category" data-category="Education">🎓 <span>Education</span></button>
+    <button class="nav-item category" data-category="Placement">💼 <span>Placement</span></button>
+    <button class="nav-item category" data-category="Technology">💻 <span>Technology</span></button>
+    <button class="nav-item category" data-category="Achievements">🏅 <span>Achievements</span></button>
+    <div class="sidebar-bottom">
+      <button class="post-news-btn" id="openSubmitBtn">＋ Post News</button>
+      <button class="admin-link" id="openAdminBtn">⚙ Admin Review</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="masthead">
+      <div class="edition">CAMPUS EDITION • <span id="today"></span></div>
+      <h1>Today's Campus News</h1>
+      <p>Report it. Verify it. Publish it.</p>
+    </section>
+    <section class="featured" id="featured"></section>
+    <section class="feed-header">
+      <h2 id="feedTitle">Latest Stories</h2>
+      <select id="sortSelect"><option value="latest">Latest</option><option value="popular">Most Popular</option></select>
+    </section>
+    <section id="feed"></section>
+  </main>
+
+  <aside class="rightbar">
+    <div class="panel">
+      <h3>🔥 Trending on Campus</h3>
+      <div id="trendingList"></div>
+    </div>
+    <div class="panel">
+      <h3>About Sanskriti Masala</h3>
+      <p>Students can report campus news. Every submission is reviewed before publication.</p>
+      <div class="trust">✓ Human-reviewed publication</div>
+    </div>
+    <div class="panel small">
+      <strong>Editorial rule</strong>
+      <p>Do not publish private, confidential, defamatory, or unverified personal information. Admin approval is required before a story becomes public.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- Submit -->
+<div class="modal-backdrop" id="submitModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Submit News</h2><button class="close" data-close="submitModal">×</button></div>
+    <form id="newsForm">
+      <label>Headline<input required id="newsTitle" maxlength="140" placeholder="Write a clear headline..."></label>
+      <label>Category<select id="newsCategory"><option>College</option><option>Sports</option><option>Events</option><option>Education</option><option>Placement</option><option>Technology</option><option>Achievements</option><option>General</option></select></label>
+      <label>Story<textarea required id="newsContent" rows="7" placeholder="Write the news in your own words..."></textarea></label>
+      <div class="form-grid">
+        <label>Reporter name<input id="reporterName" placeholder="Your name"></label>
+        <label>Source link<input id="newsLink" type="url" placeholder="https://..."></label>
+      </div>
+      <label>Photos (up to 4 image URLs)</label>
+      <div class="image-inputs" id="imageInputs"><div class="image-row"><input type="url" class="image-url" placeholder="https://example.com/photo.jpg"><button type="button" class="remove-img" onclick="removeImageRow(this)">×</button></div></div>
+      <button type="button" class="add-image" id="addImageBtn">＋ Add another photo</button>
+      <div class="warning">Your submission stays private and appears in the Admin Review Center first. The admin can edit it, approve it, reject it, or delete it.</div>
+      <button class="primary" type="submit">Submit for Review</button>
+    </form>
+  </div>
+</div>
+
+<!-- Article -->
+<div class="modal-backdrop" id="articleModal"><div class="modal article"><button class="close floating" data-close="articleModal">×</button><div id="articleDetail"></div></div></div>
+
+<!-- Admin -->
+<div class="modal-backdrop" id="adminModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Admin Review Center</h2><button class="close" data-close="adminModal">×</button></div>
+    <div class="warning">This single-file demo uses browser storage. For a real public website, replace this with a secure server/database and authenticated admin account.</div>
+    <div class="admin-stats" id="adminStats"></div>
+    <div id="pendingList"></div>
+  </div>
+</div>
+
+<!-- Edit -->
+<div class="modal-backdrop" id="editModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Edit Submission</h2><button class="close" data-close="editModal">×</button></div>
+    <form id="editForm">
+      <input type="hidden" id="editId">
+      <label>Headline<input required id="editTitle" maxlength="140"></label>
+      <label>Category<select id="editCategory"><option>College</option><option>Sports</option><option>Events</option><option>Education</option><option>Placement</option><option>Technology</option><option>Achievements</option><option>General</option></select></label>
+      <label>Story<textarea required id="editContent" rows="8"></textarea></label>
+      <div class="form-grid">
+        <label>Reporter name<input id="editReporter"></label>
+        <label>Source link<input id="editLink" type="url"></label>
+      </div>
+      <label>Photos</label>
+      <div class="image-inputs" id="editImageInputs"></div>
+      <button type="button" class="add-image" id="editAddImageBtn">＋ Add another photo</button>
+      <button class="primary" type="submit" style="margin-top:14px">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- Profile -->
+<div class="modal-backdrop" id="profileModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Your Profile</h2><button class="close" data-close="profileModal">×</button></div>
+    <div class="profile-head">
+      <div class="profile-avatar">G</div>
+      <div class="profile-name" id="profileName">Gahana</div>
+      <div class="profile-handle">@campusreporter</div>
+      <div class="profile-stats"><div><b id="profilePosts">0</b><small>posts</small></div><div><b id="profileLikes">0</b><small>likes</small></div><div><b id="profileBookmarks">0</b><small>saved</small></div></div>
+      <button class="secondary" id="editProfileBtn">Edit display name</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CAMPUS_IMAGES = [
+  "https://cdn.universitykart.com//Content/upload/admin/smfe5pwq.1r3.jpg",
+  "https://assets.collegedunia.com/public/reviewPhotos/1023504/IMG-20241030-WA0006(1).jpg"
+];
+
+const starter = {
+  id:"starter-campus",
+  title:"Sanskriti University Campus Prepares for New Batch",
+  category:"College",
+  content:"Sanskriti University campus is preparing to welcome the new batch. This example story demonstrates how a campus update can appear on Sanskriti Masala with photographs, a headline, category, reporter information and article view.",
+  reporter:"Sanskriti Masala",
+  link:"",
+  images:CAMPUS_IMAGES,
+  status:"approved",
+  createdAt:Date.now()-86400000,
+  likes:12, comments:2, shares:3, bookmarks:0
+};
+
+let posts = JSON.parse(localStorage.getItem("sm_posts") || "null");
+if(!Array.isArray(posts)) posts=[starter];
+if(!posts.some(p=>p.id==="starter-campus")) posts.unshift(starter);
+
+let profile = JSON.parse(localStorage.getItem("sm_profile") || '{"name":"Gahana"}');
+let bookmarks = JSON.parse(localStorage.getItem("sm_bookmarks") || "[]");
+let liked = JSON.parse(localStorage.getItem("sm_liked") || "[]");
+let currentView="home", currentCategory=null;
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const save=()=>{localStorage.setItem("sm_posts",JSON.stringify(posts));localStorage.setItem("sm_profile",JSON.stringify(profile));localStorage.setItem("sm_bookmarks",JSON.stringify(bookmarks));localStorage.setItem("sm_liked",JSON.stringify(liked));};
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const initials=n=>(n||"SM").split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase();
+const timeAgo=t=>{let m=Math.floor((Date.now()-t)/60000);if(m<1)return"just now";if(m<60)return m+"m";let h=Math.floor(m/60);if(h<24)return h+"h";let d=Math.floor(h/24);return d+"d";};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function openModal(id){$("#"+id).classList.add("open")}
+function closeModal(id){$("#"+id).classList.remove("open")}
+function published(){return posts.filter(p=>p.status==="approved")}
+function pending(){return posts.filter(p=>p.status==="pending")}
+function render(){
+  $("#today").textContent=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+  renderFeatured(); renderFeed(); renderTrending(); updateProfile();
+}
+function renderFeatured(){
+  const p=published().sort((a,b)=>b.createdAt-a.createdAt)[0];
+  if(!p){$("#featured").innerHTML="";return}
+  $("#featured").innerHTML=`<article class="hero-card" onclick="openArticle('${p.id}')">
+    ${p.images?.[0]?`<img class="hero-image" src="${esc(p.images[0])}" onerror="this.style.display='none'">`:""}
+    <div class="hero-body"><div class="kicker">${esc(p.category)} • Featured</div><h2>${esc(p.title)}</h2><p>${esc(p.content.slice(0,220))}${p.content.length>220?"…":""}</p><div class="meta"><span>By ${esc(p.reporter||"Anonymous")}</span><span>•</span><span>${timeAgo(p.createdAt)}</span></div></div>
+  </article>`;
+}
+function renderFeed(){
+  let arr=published();
+  const q=$("#searchInput").value.trim().toLowerCase();
+  if(currentView==="bookmarks") arr=arr.filter(p=>bookmarks.includes(p.id));
+  if(currentView==="trending") arr=arr.sort((a,b)=>(b.likes+b.comments+b.shares)-(a.likes+a.comments+a.shares));
+  else if($("#sortSelect").value==="popular") arr=arr.sort((a,b)=>(b.likes+b.comments+b.shares)-(a.likes+a.comments+a.shares));
+  else arr=arr.sort((a,b)=>b.createdAt-a.createdAt);
+  if(currentCategory) arr=arr.filter(p=>p.category===currentCategory);
+  if(q) arr=arr.filter(p=>(p.title+" "+p.content+" "+p.category+" "+p.reporter).toLowerCase().includes(q));
+  $("#feedTitle").textContent=currentCategory||({"bookmarks":"Saved Stories","trending":"Trending Stories","latest":"Latest Stories","home":"Latest Stories"}[currentView]||"Latest Stories");
+  $("#feed").innerHTML=arr.length?arr.map(card).join(""):`<div class="no-results">No published stories match this view.</div>`;
+}
+function card(p){
+ const isLiked=liked.includes(p.id), isSaved=bookmarks.includes(p.id);
+ const imgs=(p.images||[]).slice(0,4);
+ return `<article class="card">
+  <div class="card-head"><div class="mini-avatar">${initials(p.reporter||"SM")}</div><div class="post-main">
+   <div class="post-line"><span class="name">${esc(p.reporter||"Anonymous")}</span><span class="handle">@campus</span><span class="dot">·</span><span class="time">${timeAgo(p.createdAt)}</span></div>
+   <div class="kicker" style="margin-top:5px">${esc(p.category)}</div>
+   <h3><a href="#" onclick="openArticle('${p.id}');return false">${esc(p.title)}</a></h3>
+   <div class="card-text">${esc(p.content)}</div>
+   ${p.link?`<a class="source-link" href="${esc(p.link)}" target="_blank" rel="noopener">↗ View source</a>`:""}
+   ${imgs.length?`<div class="post-images ${imgs.length===1?"one":imgs.length===2?"two":imgs.length===3?"three":"four"}">${imgs.map(x=>`<img src="${esc(x)}" loading="lazy" onerror="this.style.display='none'">`).join("")}</div>`:""}
+   <div class="actions">
+    <button class="action" onclick="openArticle('${p.id}')">💬 ${p.comments||0}</button>
+    <button class="action" onclick="sharePost('${p.id}')">↗ ${p.shares||0}</button>
+    <button class="action ${isLiked?"active":""}" onclick="toggleLike('${p.id}')">♥ ${p.likes||0}</button>
+    <button class="action ${isSaved?"active":""}" onclick="toggleBookmark('${p.id}')">🔖 ${isSaved?"Saved":"Save"}</button>
+    <button class="action" onclick="deleteOwn('${p.id}')">⋯</button>
+   </div>
+  </div></div>
+ </article>`;
+}
+function renderTrending(){
+ const arr=published().sort((a,b)=>(b.likes+b.comments+b.shares)-(a.likes+a.comments+a.shares)).slice(0,5);
+ $("#trendingList").innerHTML=arr.map((p,i)=>`<div class="trend"><b>${i+1}. ${esc(p.title)}</b><br><small>${p.likes||0} likes · ${p.comments||0} comments</small></div>`).join("")||"<small>No trends yet.</small>";
+}
+function openArticle(id){
+ const p=posts.find(x=>x.id===id); if(!p)return;
+ p.comments=p.comments||0;
+ $("#articleDetail").innerHTML=`<div class="kicker">${esc(p.category)} • ${new Date(p.createdAt).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})}</div>
+ <h1>${esc(p.title)}</h1><div class="meta">By ${esc(p.reporter||"Anonymous")} · ${timeAgo(p.createdAt)}</div>
+ ${(p.images||[]).length===1?`<img class="article-cover" src="${esc(p.images[0])}" onerror="this.style.display='none'">`:(p.images||[]).length>1?`<div class="article-gallery">${p.images.map(x=>`<img src="${esc(x)}" src="${esc(x)}" onerror="this.style.display='none'">`).join("")}</div>`:""}
+ <p>${esc(p.content).replace(/\n/g,"<br>")}</p>${p.link?`<p><a class="source-link" href="${esc(p.link)}" target="_blank" rel="noopener">↗ Open source/reference</a></p>`:""}
+ <div class="actions"><button class="action" onclick="addComment('${p.id}')">💬 ${p.comments}</button><button class="action" onclick="sharePost('${p.id}')">↗ ${p.shares||0}</button><button class="action" onclick="toggleLike('${p.id}')">♥ ${p.likes||0}</button><button class="action" onclick="toggleBookmark('${p.id}')">🔖 Save</button></div>`;
+ openModal("articleModal");
+}
+function addComment(id){const p=posts.find(x=>x.id===id);if(p){p.comments=(p.comments||0)+1;save();render();openArticle(id);toast("Demo comment added.")}}
+function toggleLike(id){const p=posts.find(x=>x.id===id);if(!p)return;if(liked.includes(id)){liked=liked.filter(x=>x!==id);p.likes=Math.max(0,(p.likes||0)-1)}else{liked.push(id);p.likes=(p.likes||0)+1}save();render();toast(liked.includes(id)?"Liked":"Like removed")}
+function toggleBookmark(id){if(bookmarks.includes(id)){bookmarks=bookmarks.filter(x=>x!==id);toast("Removed from saved")}else{bookmarks.push(id);toast("Saved")}save();render()}
+async function sharePost(id){const p=posts.find(x=>x.id===id);p.shares=(p.shares||0)+1;save();render();const url=location.href.split("#")[0]+"#post-"+id;try{await navigator.clipboard.writeText(url);toast("Post link copied")}catch{toast("Share link ready")}}
+function deleteOwn(id){if(!confirm("Delete this post from this browser?"))return;posts=posts.filter(p=>p.id!==id);save();render();toast("Post deleted")}
+function addImageRow(containerId){
+ const c=$("#"+containerId), rows=c.querySelectorAll(".image-row").length;
+ if(rows>=4){toast("Maximum 4 photos");return}
+ const d=document.createElement("div");d.className="image-row";d.innerHTML='<input type="url" class="image-url" placeholder="https://example.com/photo.jpg"><button type="button" class="remove-img" onclick="removeImageRow(this)">×</button>';c.appendChild(d);
+}
+function removeImageRow(btn){const c=btn.closest(".image-inputs");if(c.querySelectorAll(".image-row").length>1)btn.parentElement.remove()}
+function getImages(container){return [...$(container).querySelectorAll(".image-url")].map(x=>x.value.trim()).filter(Boolean).slice(0,4)}
+function renderAdmin(){
+ const pend=pending();
+ $("#adminStats").innerHTML=`<div class="stat"><b>${pend.length}</b>Pending</div><div class="stat"><b>${published().length}</b>Published</div><div class="stat"><b>${posts.length}</b>Total</div>`;
+ $("#pendingList").innerHTML=pend.length?pend.map(p=>`<div class="admin-item"><small>${esc(p.category)} · submitted ${timeAgo(p.createdAt)}</small><h4>${esc(p.title)}</h4><p>${esc(p.content.slice(0,280))}${p.content.length>280?"…":""}</p><small>Reporter: ${esc(p.reporter||"Anonymous")}</small><div class="admin-actions"><button class="approve" onclick="approvePost('${p.id}')">✓ Approve</button><button class="edit" onclick="editPost('${p.id}')">✎ Edit</button><button class="reject" onclick="rejectPost('${p.id}')">Reject</button><button class="delete" onclick="adminDelete('${p.id}')">Delete</button></div></div>`).join(""):"<div class='empty'>No pending submissions. Everything is reviewed.</div>";
+}
+function approvePost(id){const p=posts.find(x=>x.id===id);if(p){p.status="approved";save();render();renderAdmin();toast("Story approved and published.")}}
+function rejectPost(id){const p=posts.find(x=>x.id===id);if(p){p.status="rejected";save();renderAdmin();toast("Story rejected.")}}
+function adminDelete(id){if(!confirm("Permanently delete this submission?"))return;posts=posts.filter(x=>x.id!==id);save();render();renderAdmin();toast("Submission deleted.")}
+function editPost(id){
+ const p=posts.find(x=>x.id===id);if(!p)return;
+ $("#editId").value=p.id;$("#editTitle").value=p.title;$("#editCategory").value=p.category;$("#editContent").value=p.content;$("#editReporter").value=p.reporter||"";$("#editLink").value=p.link||"";
+ $("#editImageInputs").innerHTML="";
+ (p.images?.length?p.images:[""]).forEach(img=>{const d=document.createElement("div");d.className="image-row";d.innerHTML=`<input type="url" class="image-url" value="${esc(img)}" placeholder="https://..."><button type="button" class="remove-img" onclick="removeImageRow(this)">×</button>`;$("#editImageInputs").appendChild(d)});
+ closeModal("adminModal");openModal("editModal");
+}
+function updateProfile(){const own=posts.filter(p=>(p.reporter||"").toLowerCase()===(profile.name||"").toLowerCase());$("#profileName").textContent=profile.name;$("#profilePosts").textContent=own.length;$("#profileLikes").textContent=own.reduce((n,p)=>n+(p.likes||0),0);$("#profileBookmarks").textContent=bookmarks.length;$("#profileBtn").textContent=initials(profile.name)}
+$$(".nav-item[data-view]").forEach(b=>b.onclick=()=>{currentView=b.dataset.view;currentCategory=null;$$(".nav-item").forEach(x=>x.classList.remove("active"));b.classList.add("active");render();$("#sidebar").classList.remove("open")});
+$$(".category").forEach(b=>b.onclick=()=>{currentCategory=b.dataset.category;currentView="home";render();$("#sidebar").classList.remove("open")});
+$("#searchInput").addEventListener("input",render);$("#sortSelect").addEventListener("change",render);
+$("#mobileMenuBtn").onclick=()=>$("#sidebar").classList.toggle("open");
+$("#openSubmitBtn").onclick=()=>openModal("submitModal");
+$("#openAdminBtn").onclick=()=>{renderAdmin();openModal("adminModal")};
+$("#profileBtn").onclick=()=>{updateProfile();openModal("profileModal")};
+$("#addImageBtn").onclick=()=>addImageRow("imageInputs");
+$("#editAddImageBtn").onclick=()=>addImageRow("editImageInputs");
+$$("[data-close]").forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+$$(".modal-backdrop").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("open")}));
+
+$("#newsForm").onsubmit=e=>{
+ e.preventDefault();
+ const post={id:"post-"+Date.now(),title:$("#newsTitle").value.trim(),category:$("#newsCategory").value,content:$("#newsContent").value.trim(),reporter:$("#reporterName").value.trim()||"Anonymous",link:$("#newsLink").value.trim(),images:getImages("#imageInputs"),status:"pending",createdAt:Date.now(),likes:0,comments:0,shares:0};
+ posts.unshift(post);save();e.target.reset();$("#imageInputs").innerHTML='<div class="image-row"><input type="url" class="image-url" placeholder="https://example.com/photo.jpg"><button type="button" class="remove-img" onclick="removeImageRow(this)">×</button></div>';closeModal("submitModal");renderAdmin();toast("Submitted for admin review.");openModal("adminModal");
+};
+$("#editForm").onsubmit=e=>{
+ e.preventDefault();const p=posts.find(x=>x.id===$("#editId").value);if(!p)return;
+ p.title=$("#editTitle").value.trim();p.category=$("#editCategory").value;p.content=$("#editContent").value.trim();p.reporter=$("#editReporter").value.trim()||"Anonymous";p.link=$("#editLink").value.trim();p.images=getImages("#editImageInputs");save();closeModal("editModal");render();renderAdmin();openModal("adminModal");toast("Changes saved.");
+};
+$("#editProfileBtn").onclick=()=>{const n=prompt("Enter your display name:",profile.name);if(n&&n.trim()){profile.name=n.trim();save();updateProfile();render();toast("Profile updated.")}};
+$("#themeBtn").onclick=()=>{const night=document.body.dataset.night==="1";if(!night){document.body.dataset.night="1";document.documentElement.style.setProperty("--paper","#171613");document.documentElement.style.setProperty("--paper2","#211f1a");document.documentElement.style.setProperty("--ink","#f5f1e8");document.documentElement.style.setProperty("--muted","#b9b1a3");document.documentElement.style.setProperty("--line","#474239");document.documentElement.style.setProperty("--soft","#302d26")}else{document.body.dataset.night="0";location.reload()}};
+render();
+</script>
+</body>
+</html>
